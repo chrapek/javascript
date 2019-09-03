@@ -136,6 +136,11 @@ export default class {
 
   customDecrypt: Function; // function used to decrypt old version messages
 
+  /*
+    support for client deduping
+  */
+  disableSubDomainShuffle: boolean;
+
   constructor({ setup, db }: ConfigConstructArgs) {
     this._db = db;
 
@@ -152,6 +157,7 @@ export default class {
     this.setFilterExpression(setup.filterExpression);
 
     this.origin = setup.origin || 'ps.pndsn.com';
+    this.disableSubDomainShuffle = setup.disableSubDomainShuffle || false;
     this.secure = setup.ssl || false;
     this.restore = setup.restore || false;
     this.proxy = setup.proxy;
