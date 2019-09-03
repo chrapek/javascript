@@ -38,10 +38,8 @@ export default class {
       (this._config.secure ? 'https://' : 'http://') + this._config.origin;
     this._coreParams = {};
 
-    if (!this._config.disableSubDomainShuffle) {
-      // create initial origins
-      this.shiftStandardOrigin();
-    }
+    // create initial origins
+    this.shiftStandardOrigin();
   }
 
   nextOrigin(): string {
@@ -72,7 +70,7 @@ export default class {
 
   // origin operations
   shiftStandardOrigin(): string {
-    this._standardOrigin = this.nextOrigin();
+    this._standardOrigin = this._config.disableSubDomainShuffle ? this._providedFQDN : this.nextOrigin();
 
     return this._standardOrigin;
   }
